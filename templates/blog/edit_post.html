@@ -1,0 +1,39 @@
+{% extends '../base.html' %}
+{% block title %}Edit Post{% endblock title %}
+{% block content %}
+
+    <div class="row justify-content-center">
+        <div class="col-md-6 mt-3 shadow">
+            <h2 class="text-center">Edit Post</h2>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="id_title" class="form-label">Title</label>
+                    {{ form.title }}
+                </div>
+                <div class="mb-3">
+                    <label for="id_content" class="form-label">Content</label>
+                    {{ form.content }}
+                </div>
+                <div class="mb-3">
+                    <label for="id_image" class="form-label">Choose New Image</label>
+                    {{ form.image }}
+                </div>
+                <div class="row">
+                    <div class="col-md-1">
+                        <input type="submit" value="Edit" class="btn btn-primary mb-3">
+                    </div>
+                    <div class="col-md-11">
+                        <a href="{% url 'post_detail' post.id %}" class="btn btn-primary">Cancel</a>
+                    </div>
+                </div>
+                
+                
+            </form>
+        </div>
+    </div>
+
+    {% for message in messages %}
+        {{ message }}
+    {% endfor %}
+{% endblock content %}

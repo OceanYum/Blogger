@@ -1,0 +1,116 @@
+{% extends '../base.html' %}
+{% block title %}Post Detail{% endblock title %}
+{% block content %}
+
+    {% for message in messages %}
+        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>    
+    {% endfor %}
+
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+
+            <div class="card mb-3">
+                <img src="{{ post.image.url }}" class="card-img-top" alt="Image" style="height: 35rem">
+                <div class="card-body">
+                    <h5 class="card-title text-center">{{ post.title }}</h5>
+                    <p class="card-text">{{ post.content }}</p>
+                    <p class="card-text"><small class="text-muted">
+                        Created at {{ post.created_at }}
+                        by {{ post.user }}
+                    </small></p>
+                    {% if user.is_authenticated %}
+                        {% if user.id == post.user.id %}
+                            <a href="{% url 'edit_post' post.id %}" class="btn btn-primary">Edit</a>
+                            <a href="{% url 'delete_post' post.id %}" class="btn btn-danger">Delete</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+            {% if user.is_authenticated %}
+            <div class="col-md-12">
+            <form method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h3>Write Comment Here</h3>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-8 mb-3">
+                        {{ form.content }}        
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <input type="submit" value="POST" class="btn btn-primary">
+                    </div>
+                </div>
+            </form>
+            </div>            
+            {% else %}
+            <div class="col-md-12 text-center">
+                <h2>
+                    <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+                    to post a comment
+                </h2>
+            </div>
+            {% endif %}
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h3>What others are thinking of this post!</h3>
+                </div>
+            </div>
+        
+            <div class="row">
+
+            </div>
+
+
+
+            {% for comment in comments %}
+
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <p class="card-text">{{ comment.content }}</p>
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    Created on {{ comment.created_at }}
+                                    by {{ comment.user }}                        
+                                </small>
+                            </p>
+                            {% if user.is_authenticated %}
+                                {% if user.id == comment.user.id %}
+                                    <a href="{% url 'edit_comment' comment.id %}" class="btn btn-primary">Edit</a>
+                                    <a href="{% url 'delete_comment' comment.id %}" class="btn btn-danger">Delete</a>
+                                {% endif %}
+                            {% endif %}
+                        </div>        
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+
+        </div>
+    </div>
+
+
+
+
+{% endblock content %}

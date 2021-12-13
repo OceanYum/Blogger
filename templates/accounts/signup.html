@@ -1,0 +1,37 @@
+{% extends '../base.html' %}
+{% block title %}User Signup{% endblock title %}
+{% block content %}
+
+    <div class="row justify-content-center">
+        <div class="col-md-5 mt-3 shadow mb-4">
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3 mt-3">
+                    <label for="id_username" class="form-label">Username</label>
+                    {{ form.username }}
+                </div>
+                <div class="mb-3">
+                    <label for="id_first_name" class="form-label">First Name</label>
+                    {{ form.first_name }}
+                </div>
+                <div class="mb-3">
+                    <label for="id_last_name" class="form-label">Last Name</label>
+                    {{ form.last_name }}
+                </div>
+                <div class="mb-3">
+                    <label for="id_email" class="form-label">Email</label>
+                    {{ form.email }}
+                </div>
+                <div class="mb-3">
+                    <label for="id_password1" class="form-label">Password</label>
+                    {{ form.password1 }}
+                </div>
+                <div class="mb-3">
+                    <label for="id_password2" class="form-label">Password Confirmation</label>
+                    {{ form.password2 }}
+                </div>
+                <input type="submit" value="Signup" class="btn btn-primary mb-3">
+            </form>
+        </div>
+    </div>
+{% endblock content %}

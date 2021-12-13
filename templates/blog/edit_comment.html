@@ -1,0 +1,28 @@
+{% extends '../base.html' %}
+{% block title %}Edit Comment{% endblock title %}
+{% block content %}
+
+    <div class="row justify-content-center">
+        <div class="col-md-6 mt-3 shadow">
+            <h2 class="text-center">Edit Post</h2>
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    {{ form.content }}
+                </div>
+                <div class="row">
+                    <div class="col-md-1">
+                        <input type="submit" value="Edit" class="btn btn-primary mb-3">
+                    </div>
+                    <div class="col-md-11">
+                        <a href="{% url 'post_detail' rid %}" class="btn btn-primary">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {% for message in messages %}
+        {{ message }}
+    {% endfor %}
+{% endblock content %}
